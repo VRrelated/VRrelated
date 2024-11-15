@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relationship Tools</title>
+    <style>
+        /* Color Palette */
+        :root {
+            --primary: #124076;
+            --secondary: #86AB89;
+            --background: #E7FBE6;
+            --accent: #DA8359;
+        }
+        
+        /* Basic Styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: var(--background);
+            color: var(--accent);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+        
+        h1 {
+            color: var(--primary);
+            font-size: 2em;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        /* Popup Banner */
+        #popup {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            color: var(--background);
+            font-size: 1.5em;
+            z-index: 100;
+        }
+        
+        #popup button {
+            background-color: var(--accent);
+            color: var(--background);
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
+        /* Tool Container */
+        .tool-container {
+            background-color: var(--secondary);
+            color: var(--primary);
+            width: 90%;
+            max-width: 400px;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 10px 0;
+            text-align: center;
+        }
+
+        /* Button Styling */
+        .btn {
+            background-color: var(--accent);
+            color: var(--background);
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+        }
+        
+        /* Responsive Layout */
+        @media (max-width: 600px) {
+            .tool-container {
+                width: 90%;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Popup Banner -->
+    <div id="popup">
+        <h2>Welcome to our Relationship Tools!</h2>
+        <h4>"Celebrate your unique story with us—explore tools crafted just for you!"</h4>
+        <h4>"Embrace your journey together with tools designed to celebrate your love!"</h4>
+        <button onclick="closePopup()">Start Exploring</button>
+    </div>
+
+    <h1>Relationship</h1>
+    
+    <!-- Tools Section -->
+    <div class="tool-container" id="relationshipDayCalculator">
+        <h3>Relationship Day Calculator</h3>
+        <input type="date" id="relationshipStartDate" placeholder="Select your start date">
+        <button class="btn" onclick="calculateRelationshipDays()">Calculate Days</button>
+        <p id="relationshipDaysResult"></p>
+    </div>
+
+    <div class="tool-container" id="compatibilityCheck">
+        <h3>Love Compatibility Check</h3>
+        <input type="text" id="yourName" placeholder="Your Name">
+        <input type="text" id="partnerName" placeholder="Partner's Name">
+        <button class="btn" onclick="checkCompatibility()">Check Compatibility</button>
+        <p id="compatibilityResult"></p>
+    </div>
+
+   
+        <div class="tool-container" id="loveStoryTimeline">
+            <section id="timeline">
+                <h3>Love Story Timeline</h3>
+                
+                <!-- Input for Date and Description -->
+                <label for="event-date">Event Date:</label>
+                <input type="date" id="event-date">
+                
+                <label for="event-description">Event Description:</label>
+                <input type="text" id="event-description" placeholder="Describe your memorable event">
+                
+                <!-- Add Event Button -->
+                <button class="btn" onclick="addEvent()">Add Event</button>
+                
+                <!-- Timeline List Display -->
+                <ul id="timeline-list"></ul>
+            </section>
+        </div>
+        
+    
+
+    <div class="tool-container" id="anniversaryReminder">
+        <h3>Anniversary Reminder</h3>
+        <input type="date" id="anniversaryDate" placeholder="Select Anniversary Date">
+        <button class="btn" onclick="setAnniversaryReminder()">Set Reminder</button>
+        <p id="anniversaryResult"></p>
+    </div>
+
+    <div class="tool-container" id="relationshipGoalsTracker">
+        <h3>Relationship Goals Tracker</h3>
+        <textarea id="goals" rows="3" placeholder="List your goals here"></textarea>
+        <button class="btn" onclick="trackGoals()">Save Goals</button>
+    </div>
+
+    <div class="tool-container" id="loveLettersVault">
+        <h3>Love Letters Vault</h3>
+        <textarea id="loveLetter" rows="4" placeholder="Write a love letter"></textarea>
+        <button class="btn" onclick="saveLoveLetter()">Save Letter</button>
+    </div>
+
+    <!-- JavaScript for Functionality -->
+    <script>
+        // Welcome Popup
+        function closePopup() {
+            document.getElementById('popup').style.display = 'none';
+        }
+
+        // Relationship Day Calculator
+        function calculateRelationshipDays() {
+            const startDate = new Date(document.getElementById('relationshipStartDate').value);
+            const today = new Date();
+            const difference = today - startDate;
+            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+            document.getElementById('relationshipDaysResult').textContent = `You've been together for ${days} days.`;
+        }
+
+        // Love Compatibility Check
+        function checkCompatibility() {
+            const yourName = document.getElementById('yourName').value;
+            const partnerName = document.getElementById('partnerName').value;
+            const compatibility = Math.floor(Math.random() * 101);
+            document.getElementById('compatibilityResult').textContent = `${yourName} and ${partnerName} are ${compatibility}% compatible!`;
+        }
+
+        // Anniversary Reminder
+        function setAnniversaryReminder() {
+            const anniversaryDate = document.getElementById('anniversaryDate').value;
+            document.getElementById('anniversaryResult').textContent = `Anniversary set for ${anniversaryDate}`;
+        }
+
+        function addEvent() {
+    // Get the values from input fields
+    const eventDate = document.getElementById("event-date").value;
+    const eventDescription = document.getElementById("event-description").value;
+
+    // Ensure both fields are filled
+    if (eventDate && eventDescription) {
+        // Create a new list item
+        const li = document.createElement("li");
+        li.textContent = `${eventDate}: ${eventDescription}`;
+        
+        // Add the list item to the timeline list
+        document.getElementById("timeline-list").appendChild(li);
+        
+        // Clear the input fields
+        document.getElementById("event-date").value = "";
+        document.getElementById("event-description").value = "";
+    } else {
+        // Alert if either field is empty
+        alert("Please enter both a date and a description.");
+    }
+}
+
+
+        // Relationship Goals Tracker
+        function trackGoals() {
+            const goals = document.getElementById('goals').value;
+            alert("Goals saved!");
+        }
+
+        // Love Letters Vault
+        function saveLoveLetter() {
+            const loveLetter = document.getElementById('loveLetter').value;
+            alert("Love letter saved!");
+        }
+    </script>
+</body>
+</html>
